@@ -7,8 +7,7 @@
 *.fls
 *.log
 *.out
-Manuscript/ex_article.pdf
-Manuscript/ex_article.synctex.gz
+*.synctex*
 *.thm
 Manuscript/manuscript.pdf
 Manuscript/manuscript.synctex.gz
