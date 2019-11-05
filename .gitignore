@@ -1,2 +1,12 @@
 
 *.swp
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+Manuscript/ex_article.pdf
+Manuscript/ex_article.synctex.gz
+*.thm
