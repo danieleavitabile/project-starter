@@ -1,9 +1,9 @@
 % SIAM Supplemental File Template
-\documentclass[review,supplement,onefignum,onetabnum]{siamart190516}
+\documentclass[review,supplement,onefignum,onetabnum]{siamonline220329}
 
 \input{ex_shared}
 
-\externaldocument{ex_article}
+\externaldocument[][nocite]{ex_article}
 
 % Optional PDF information
 \ifpdf
@@ -33,13 +33,13 @@ from the main article in this supplement.
 \lipsum[100-101]
 
 \begin{theorem}
-  An example theorem.
+An example theorem.
 \end{theorem}
 
 \lipsum[102]
  
 \begin{lemma}
-  An example lemma.
+An example lemma.
 \end{lemma}
 
 \lipsum[103-105]
@@ -56,8 +56,8 @@ Here is an example citation: \cite{KoMa14}.
 supporting evidence. 
 
 \begin{table}[htbp]
-{\footnotesize
-  \caption{Example table}  \label{tab:foo}
+\footnotesize
+  \caption{Example table.}  \label{tab:smfoo}
 \begin{center}
   \begin{tabular}{|c|c|c|} \hline
    Species & \bf Mean & \bf Std.~Dev. \\ \hline
@@ -65,7 +65,6 @@ supporting evidence.
     2 & 5.4 & 0.6 \\ \hline
   \end{tabular}
 \end{center}
-}
 \end{table}
 
 

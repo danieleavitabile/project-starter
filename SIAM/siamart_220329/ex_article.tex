@@ -1,5 +1,5 @@
 % SIAM Article Template
-\documentclass[review,onefignum,onetabnum]{siamart190516}
+\documentclass[review,hidelinks,onefignum,onetabnum]{siamart220329}
 
 % Information that is shared between the article and the supplement
 % (title and author information, macros, packages, etc.) goes into
@@ -19,7 +19,7 @@
 % The next statement enables references to information in the
 % supplement. See the xr-hyperref package for details.
 
-\externaldocument{ex_supplement}
+\externaldocument[][nocite]{ex_supplement}
 
 % FundRef data to be entered by SIAM
 %<funding-group specific-use="FundRef">
@@ -40,23 +40,23 @@
 
 % REQUIRED
 \begin{abstract}
-  This is an example SIAM \LaTeX\ article. This can be used as a
-  template for new articles.  Abstracts must be able to stand alone
-  and so cannot contain citations to the paper's references,
-  equations, etc.  An abstract must consist of a single paragraph and
-  be concise. Because of online formatting, abstracts must appear as
-  plain as possible. Any equations should be inline.
+This is an example SIAM \LaTeX\ article. This can be used as a
+template for new articles.  Abstracts must be able to stand alone
+and so cannot contain citations to the paper's references,
+equations, etc.  An abstract must consist of a single paragraph and
+be concise. Because of online formatting, abstracts must appear as
+plain as possible. Any equations should be inline.
 \end{abstract}
 
 % REQUIRED
 \begin{keywords}
-  example, \LaTeX
+example, \LaTeX
 \end{keywords}
 
 % REQUIRED
-\begin{AMS}
-  68Q25, 68R10, 68U05
-\end{AMS}
+\begin{MSCcodes}
+68Q25, 68R10, 68U05
+\end{MSCcodes}
 
 \section{Introduction}
 The introduction introduces the context and summarizes the
@@ -186,6 +186,23 @@ available in the supplement in \cref{tab:foo}.
   \caption{Example figure using external image files.}
   \label{fig:testfig}
 \end{figure}
+
+\Cref{tab:foo} shows additional
+supporting evidence. 
+
+\begin{table}[htbp]
+\footnotesize
+\caption{Example table.}\label{tab:foo}
+\begin{center}
+  \begin{tabular}{|c|c|c|} \hline
+   Species & \bf Mean & \bf Std.~Dev. \\ \hline
+    1 & 3.4 & 1.2 \\
+    2 & 5.4 & 0.6 \\ 
+    3 & 7.4 & 2.4 \\ 
+    4 & 9.4 & 1.8 \\ \hline
+  \end{tabular}
+\end{center}
+\end{table}
 
 \lipsum[51]
 

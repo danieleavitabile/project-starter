@@ -1,19 +1,16 @@
 %%
-%% This is file `siamart190516.cls', based on article.cls
+%% This is file `siamart220329.cls', based on article.cls
 %% Revision of siam macros for use with LaTeX 2e
 %% 
-%% May 2019
+%% March 2022
 %%
-%% Minor updates including hyphenation support and URL linking 
-%% to the DOI in the page 1 footer.
-%% 
 %% You are not allowed to change this file. 
 %% 
 %% You are allowed to distribute this file under the condition that 
 %% it is distributed together with all of the files in the siam macro 
 %% distribution. These are:
 %%
-%% * siamart190516.cls: Main LaTeX class file (this file)
+%% * siamart220329.cls: Main LaTeX class file (this file)
 %% * siamplain.bst: Bibliographic style file for BibTeX
 %% * docsiamart.tex: Produces documentation
 %% * docsiamart.pdf: Documentation
@@ -47,10 +44,14 @@
 %%   Right brace   \}     Tilde         \~}
 \NeedsTeXFormat{LaTeX2e}[1995/06/01]
 %%
-%% >>jeh>> --- Modified May 2019 ---
-%%
 % [[[TODO: Update date and version in next line]]]
-\ProvidesClass{siamart190516}[2019/05/16 v1.4.3 LaTeX document e-class]
+\ProvidesClass{siamart220329}[2022/03/29 v1.4.4 LaTeX document e-class]
+%%
+%% >>jeh>> --- Modified Spring 2022 ---
+%%
+%% Changover from using "AMS subject classifications" to "MSC codes".
+%%
+%% A correction needed to bypass a recent change to the eqnarray environment.
 %%
 %% <<tgk<<
 %%
@@ -739,6 +740,8 @@ Vol.\ #3, No.\ #4, pp.\ #5
 \newenvironment{abstract}{\begin{@abssec}{\abstractname}}{\end{@abssec}}
 \newenvironment{keywords}{\begin{@abssec}{\keywordsname}}{\end{@abssec}}
 \newenvironment{keyword}{\begin{@abssec}{\keywordname}}{\end{@abssec}}
+\newenvironment{MSCcodes}{\begin{@abssec}{\MSCcodesname}}{\end{@abssec}}
+\newenvironment{MSCcode}{\begin{@abssec}{\MSCcodename}}{\end{@abssec}}
 \newenvironment{AMS}{\begin{@abssec}{\AMSname}}{\end{@abssec}}
 \newenvironment{AM}{\begin{@abssec}{\AMname}}{\end{@abssec}}
 %\newenvironment{PII}{\begin{@abssec}{\PIIname}}{\end{@abssec}}
@@ -853,7 +856,10 @@ Vol.\ #3, No.\ #4, pp.\ #5
          \tabskip\z@skip
       \cr
 }
-\ifx\eqnarray\@tempb    % Try the default eqnarray environment
+
+%not comparing against \@tempb anymore
+
+%\ifx\eqnarray\@tempb    % Try the default eqnarray environment
   \def\eqnarray{%
    \stepcounter{equation}%
    \def\@currentlabel{\p@equation\theequation}%
@@ -870,8 +876,8 @@ Vol.\ #3, No.\ #4, pp.\ #5
          \tabskip\z@skip
       \cr
 }
-\else    \typeout{Warning: Unable to fix unknown version of \string\eqnarray.}
-\fi
+%\else    \typeout{Warning: Unable to fix unknown version of \string\eqnarray.}
+%\fi
  
 \def\@tempb{}
 
@@ -1109,6 +1115,8 @@ Vol.\ #3, No.\ #4, pp.\ #5
 \newcommand\abstractname{Abstract}
 \newcommand\keywordsname{Key words}
 \newcommand\keywordname{Key word}
+\newcommand\MSCcodesname{MSC codes}
+\newcommand\MSCcodename{MSC code}
 \newcommand\AMSname{AMS subject classifications}
 \newcommand\AMname{AMS subject classification}
 %\newcommand\PIIname{PII}
@@ -1313,7 +1321,7 @@ Vol.\ #3, No.\ #4, pp.\ #5
 %% Add support for color in order to color the hyperlinks.
 %% 
 \if@hidelinks
-\hypersetup{ hidelinks = true }
+\hypersetup{ hidelinks }
 \else
 \hypersetup{
   colorlinks = true,
@@ -1895,6 +1903,6 @@ Vol.\ #3, No.\ #4, pp.\ #5
 \endinput
 
 %% 
-%% End of file `siamart171218.cls'.
+%% End of file `siamart220329.cls'.
 
 

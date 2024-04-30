@@ -1,4 +1,4 @@
-\documentclass[final,onefignum,onetabnum]{siamart190516}
+\documentclass[final,onefignum,onetabnum]{siamart220329}
 
 %% ------------------------------------------------------------------
 %% Code used in examples, needed to reproduce 
@@ -135,18 +135,18 @@
 %% ------------------------------------------------------------------
 \begin{tcbverbatimwrite}{tmp_\jobname_abstract.tex}
 \begin{abstract}
-  Documentation is given for use of the SIAM standard \LaTeX\ and \BibTeX\
-  macros.  Instructions and suggestions for compliance with SIAM style
-  standards are also included. Familiarity with standard \LaTeX\ commands is assumed.
+Documentation is given for use of the SIAM standard \LaTeX\ and \BibTeX\
+macros.  Instructions and suggestions for compliance with SIAM style
+standards are also included. Familiarity with standard \LaTeX\ commands is assumed.
 \end{abstract}
 
 \begin{keywords}
-  \LaTeX, \BibTeX, SIAM Journals, Documentation 
+\LaTeX, \BibTeX, SIAM Journals, Documentation 
 \end{keywords}
 
-\begin{AMS}
-  00A20 
-\end{AMS}
+\begin{MSCcodes}
+00A20, 00B10
+\end{MSCcodes}
 \end{tcbverbatimwrite}
 \input{tmp_\jobname_abstract.tex}
 %% ------------------------------------------------------------------
@@ -168,7 +168,7 @@ The SIAM \LaTeX\@ files can be found at
 \url{https://www.siam.org/journals/auth-info.php}. The files that
 are distributed for the standard macros are given below. 
 \begin{itemize}
-\item \texttt{siamart190516.cls} (required): Main SIAM standard \LaTeX\ class file.
+\item \texttt{siamart220329.cls} (required): Main SIAM standard \LaTeX\ class file.
 \item \texttt{siamplain.bst} (required): Bibliographic style file for
   \BibTeX.
 \item \texttt{docsiamart.tex}: Produces this documentation.
@@ -179,7 +179,7 @@ are distributed for the standard macros are given below.
 \item \texttt{ex\_shared.tex}: Template for shared information for
   article and supplement.
 \end{itemize}
-To use these files, put \texttt{siamart190516.cls} and
+To use these files, put \texttt{siamart220329.cls} and
 \texttt{siamplain.bst} in the directory with your
 paper or, alternatively, into your \LaTeX\@ and \BibTeX\@ paths,
 respectively. 
@@ -190,15 +190,15 @@ in \cref{sec:template}.
 
 \begin{example}[label={ex:outline},listing only,%
   listing options={style=siamlatex,{morekeywords=[1]{maketitle},
-      morekeywords=[2]{siamart190516}},}]%
+      morekeywords=[2]{siamart220329}},}]%
   {Document outline}
-\documentclass{siamart190516}
+\documentclass{siamart220329}
 % Preamble consisting of:
 % Packages and macro definitions go here.
 % Define title, authors, headers here.
 \begin{document}
 \maketitle
-% Other front matter goes here: abstract, keywords, AMS subjects.
+% Other front matter goes here: abstract, keywords, MSC codes.
 % Main body goes here.
 % Appendices goes here (optional).
 % Acknowledgements go here (optional).
@@ -261,19 +261,18 @@ deletetexcs={and,thanks,title,author},%
 ]{Title and authors in preamble}{tmp_\jobname_header.tex}
 
 \newpage
-Following the author and title is the abstract, key words listing, and AMS subject
-classifications, designated using the \code{abstract}, \code{keywords}, and \code{AMS}
+Following the author and title is the abstract, key words listing, and MSC codes, designated using the \code{abstract}, \code{keywords}, and \code{MSCcodes}
 environments. 
-Authors are responsible for providing AMS numbers which can be found
-on the AMS web site \cite{AMSMSC2010}. The abstract, keywords, and AMS subject classifications
+Authors are responsible for providing MSC codes which can be found
+on the AMS web site \cite{AMSMSC2010}. The abstract, keywords, and MSC codes
 for this document are specified in \cref{ex:abstract}.
 
 \examplefile[label={ex:abstract},%
 before upper={\preamble{\bs newcommand\{\bs BibTeX\}\{\{\bs scshape Bib\}\bs TeX\bs xspace\}}},
 listing only,%
 listing options={style=siamlatex,%
-{morekeywords=[2]{abstract,keywords,AMS}}}
-]{Abstract, keywords, and AMS classifications}{tmp_\jobname_abstract.tex}
+{morekeywords=[2]{abstract,keywords,MSCcodes}}}
+]{Abstract, keywords, and MSC codes}{tmp_\jobname_abstract.tex}
 
 A more complete example, including a PDF supplement, that uses the
 included files \texttt{ex\_article.tex}, \texttt{ex\_supplement.tex},
@@ -604,7 +603,7 @@ special column options from the \texttt{array} package.
 
 \begin{tcbverbatimwrite}{tmp_\jobname_simpletable.tex}
 \begin{table}[tbhp]
-{\footnotesize
+\footnotesize
   \caption{Example table}\label{tab:simpletable}
 \begin{center}
   \begin{tabular}{|c|c|c|} \hline
@@ -613,7 +612,6 @@ special column options from the \texttt{array} package.
     2 & 5.4 & 0.6 \\ \hline
   \end{tabular}
 \end{center}
-}
 \end{table}
 \end{tcbverbatimwrite}
 
@@ -627,7 +625,7 @@ listing only, listing options={style=siamlatex}]%
 \newcolumntype{R}{>{$}r<{$}}  %
 \newcolumntype{V}[1]{>{[\;}*{#1}{R@{\;\;}}R<{\;]}} %
 \begin{table}[tbhp]
-{\footnotesize
+\footnotesize
  \captionsetup{position=top} %<- Needed for using subtables created with the subfig package 
   \caption{Example table adapted from Kolda and Mayo \rm{\cite{KoMa14}}.}\label{tab:KoMa14}
 \begin{center}
@@ -649,7 +647,6 @@ fevals &  \multicolumn{2}{c|}{time (sec.)}\\ \hline
    2 & \multicolumn{6}{c|}{\emph{--- Failed to converge ---}} & 0.23 & 0.02 \\ \hline 
  \end{tabular}}
 \end{center}
-}
 \end{table}
 \end{tcbverbatimwrite}
 
@@ -674,7 +671,7 @@ PDF, JPEG, and PNG figures.
 If working with EPS images and using \texttt{pdflatex}, we
 recommend the package \texttt{epstopdf} to automatically convert EPS
 images to PDF for inclusion in PDF documents created by
-\texttt{pdflatex}.
+\texttt{pdflatex}.  Please note that \texttt{epstopdf} requires \texttt{texlive-font-utils} which may not be part of a standard \LaTeX\ installation.
 %
 \Cref{ex:fig} shows the code to generate \cref{fig:testfig}.  This
 example uses the \texttt{graphicx} package for the
@@ -863,7 +860,7 @@ all sections, equations, figures, tables, algorithms, %
 and so on to start with ``SM''. 
 %
 A supplement does have sections but does not have an
-abstract, keywords, AMS classifications, or appendices.  The main
+abstract, keywords, MSC codes, or appendices.  The main
 document and supplement can cross reference sections, equations,
 theorem-like declarations, figures, tables, algorithms, etc.  However,
 there is no sharing of references. The references are optional for a
@@ -893,7 +890,7 @@ references.
   listing options={style=siamlatex,%
     {morekeywords=[2]{externaldocument}}}]%
   {Document outline with supplement}
-\documentclass{siamart190516}
+\documentclass{siamart220329}
 \input{ex_shared}
 \externaldocument{ex_supplement}
 \begin{document}
@@ -909,7 +906,7 @@ references.
   listing options={style=siamlatex,%
     {morekeywords=[2]{supplement,siampretitle,externaldocument}}}]%
   {Supplement document outline}
-\documentclass[supplement]{siamart190516}
+\documentclass[supplement]{siamart220329}
 \input{ex_shared}
 \externaldocument{ex_article}
 \begin{document}
@@ -1034,8 +1031,10 @@ listing options={style=siamlatex,firstline=69,lastline=76,%
 Here we summarize the major changes in the latest version of
 the SIAM standard \LaTeX\@ and \BibTeX\ classes:
 \begin{itemize}
-\item Change in file names: \texttt{siamart171218.cls} is replaced by
-  \texttt{siamart190516.cls}, and the \texttt{siam.bst} bibliography style
+\item Change in file name: \texttt{siamart210208.cls} is replaced by \texttt{siamart220329.cls}.
+\item Change from using ``AMS subject classifications" to ``MSC codes".
+\item Added a correction needed to fix a problem caused by a recent change to the eqnarray environment (see a discussion regarding this \href{https://tex.stackexchange.com/questions/635684/what-is-the-recent-change-to-eqnarray-for}{here}).
+\item Change in file name: \texttt{siam.bst} bibliography style
   file is replaced by \texttt{siamplain.bst}; see \cref{sec:intro}.
 \item Hyperlinking in cross references via the
   \texttt{cleveref} package, including customizations to adhere to
@@ -1089,7 +1088,7 @@ package as demonstrated in \cref{ex:dmo}.
 SIAM recommends numbering objects by section number. 
 However, if you prefer to number objects sequentially (e.g., Figure 5
 would indicate the fifth figure appearing in the paper regardless of which section it is in), add the code from
-\cref{ex:numbering} as documentclass options (e.g., \code{\documentclass[review,onefignum,onetabnum]{siamart190516}}).
+\cref{ex:numbering} as documentclass options (e.g., \code{\documentclass[review,onefignum,onetabnum]{siamart220329}}).
 
 \begin{example}[label=ex:numbering,listing only,%
 listing options={style=siamlatex,{morekeywords=[2]{makeatletter,makeatother}},}]%

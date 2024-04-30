@@ -9,5 +9,6 @@
 *.out
 *.synctex*
 *.thm
+*DS_Store
 Manuscript/manuscript.pdf
 Manuscript/manuscript.synctex.gz
