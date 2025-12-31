@@ -1,8 +1,8 @@
 %%
-%% This is file `siamart251104.cls', based on article.cls
+%% This is file `siamart251216.cls', based on article.cls
 %% Revision of siam macros for use with LaTeX 2e
 %% 
-%% November 2025
+%% December 2025
 %%
 %% You are not allowed to change this file. 
 %% 
@@ -10,7 +10,7 @@
 %% it is distributed together with all of the files in the siam macro 
 %% distribution. These are:
 %%
-%% * siamart251104.cls: Main LaTeX class file (this file)
+%% * siamart251216.cls: Main LaTeX class file (this file)
 %% * siamplain.bst: Bibliographic style file for BibTeX
 %% * docsiamart.tex: Produces documentation
 %% * docsiamart.pdf: Documentation
@@ -45,7 +45,11 @@
 \NeedsTeXFormat{LaTeX2e}[1995/06/01]
 %%
 % [[[TODO: Update date and version in next line]]]
-\ProvidesClass{siamart251104}[2025/11/04 v1.4.7 LaTeX document e-class]
+\ProvidesClass{siamart251216}[2025/12/16 v1.4.8 LaTeX document e-class]
+%%
+%% >>lrp>> --- Modified December 2025 ---
+%%
+%% Additional margin adjustments for print vendors
 %%
 %% >>jeh>> --- Modified November 2025 ---
 %%
@@ -275,13 +279,13 @@
 %\addtolength\textheight{\topskip}
 \if@compatibility
   \if@twoside
-%     \setlength\oddsidemargin   {.5in}
-%     \setlength\evensidemargin  {.5in}
-     \setlength\marginparwidth {1.25in}
+     \setlength\oddsidemargin   {1in}
+     \setlength\evensidemargin  {.75in}
+%     \setlength\marginparwidth {1.25in}
   \else
-%     \setlength\oddsidemargin   {.5in}
-%     \setlength\evensidemargin  {.5in}
-     \setlength\marginparwidth  {1.25in}
+     \setlength\oddsidemargin   {1in}
+     \setlength\evensidemargin  {.55in}
+%     \setlength\marginparwidth  {1.25in}
   \fi
   \if@twocolumn
      \setlength\oddsidemargin  {30\p@}
@@ -290,13 +294,13 @@
   \fi
 \else
   \if@twoside
-%     \setlength\oddsidemargin   {.5in}
-%     \setlength\evensidemargin  {.5in}
-     \setlength\marginparwidth {1.25in}
+     \setlength\oddsidemargin   {-.12in}
+     \setlength\evensidemargin  {-.27in}
+%     \setlength\marginparwidth {1.25in}
   \else
-%     \setlength\oddsidemargin   {.5in}
-%     \setlength\evensidemargin  {.5in}
-     \setlength\marginparwidth {1.25in}
+     \setlength\oddsidemargin   {-.19in}
+     \setlength\evensidemargin  {-.29in}
+%     \setlength\marginparwidth {1.25in}
   \fi
   \@settopoint\oddsidemargin
   \@settopoint\marginparwidth
@@ -1679,6 +1683,8 @@ Vol.\ #3, No.\ #4, pp.\ #5
 \numberwithin{theorem}{section}
 \fi
 
+\setlength\marginparwidth  {.25in}
+
 %% Fix for cleveref referencing anything defined as a theorem-like environment as a theorem
 %% >>jeh>> --- Added February 2025 ---
 
@@ -1945,6 +1951,6 @@ Vol.\ #3, No.\ #4, pp.\ #5
 \endinput
 
 %% 
-%% End of file `siamart251104.cls'.
+%% End of file `siamart251216.cls'.
 
 

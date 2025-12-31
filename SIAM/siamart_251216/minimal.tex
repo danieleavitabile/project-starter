@@ -1,0 +1,24 @@
+\documentclass{siamart251216}
+
+%% Used for creating new theorem and remark environments
+\newsiamremark{hypothesis}{Hypothesis}
+\crefname{hypothesis}{Hypothesis}{Hypotheses}
+\AddToHook{env/hypothesis/begin}{\crefalias{theorem}{hypothesis}}
+
+\begin{document}
+
+\section{Test section}\label{sec:test} 
+Here are one theorem and one hypothesis.
+
+\begin{theorem}\label{thm:test}
+  Test theorem
+\end{theorem}
+
+\begin{hypothesis}\label{hyp:test}
+  $x$ is a real number
+\end{hypothesis}
+
+And now we use cleveref to cite \cref{sec:test} \cref{thm:test} and \cref{hyp:test}
+  
+\end{document}
+
