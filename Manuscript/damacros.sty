@@ -4,6 +4,7 @@
 \RequirePackage{amsfonts,amsopn}
 \RequirePackage[textwidth=6em] {todonotes}
 \RequirePackage{cleveref}
+\RequirePackage{xcolor}
 
 % Define a warning sybol
 \newcommand\Warning{%
@@ -45,9 +46,23 @@
 
 % Additional theorem-like environments
 \newsiamremark{hypothesis}{Hypothesis}
+\newsiamremark{assumption}{Assumption}
 \newsiamthm{claim}{Claim}
 \newsiamremark{remark}{Remark}
+
+% NOTE: \AddToHook{env/.../begin}{\crefalias{theorem}{...}} below depends on
+% the LaTeX kernel's generic environment-hook support, which is only
+% reliable on a sufficiently recent kernel/distribution, and only remaps the
+% *currently active* alias for the shared "theorem" counter -- it does not
+% attach to any one label in particular. For a document where getting
+% \cref/\Cref right really matters (e.g. a response to referees), prefer
+% tagging each label explicitly instead, independently of this hook:
+% \label[hypothesis]{...}, \label[assumption]{...}, \label[remark]{...},
+% \label[claim]{...}. Note also that remark and claim have no crefalias
+% wiring at all below, so \cref to one of them may print "Theorem" instead
+% of "Remark"/"Claim" unless you label it explicitly as above.
 \AddToHook{env/hypothesis/begin}{\crefalias{theorem}{hypothesis}}
+\AddToHook{env/assumption/begin}{\crefalias{theorem}{assumption}}
 
 
 % Sets
@@ -87,8 +102,23 @@
 \DeclareMathOperator{\vari}{var}
 \DeclareMathOperator{\prob}{\mathbb{P}}
 
-% Assign cref name to hypotheses
-% \crefname{hypothesis}{Hypothesis}{Hypotheses}
+% Assign cref names to the additional theorem-like environments above
+\crefname{hypothesis}{Hypothesis}{Hypotheses}
+\Crefname{hypothesis}{Hypothesis}{Hypotheses}
+\crefname{assumption}{Assumption}{Assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+\crefname{claim}{Claim}{Claims}
+\Crefname{claim}{Claim}{Claims}
+
+% Highlight text that is new/changed for a revision/resubmission. Wraps only
+% the new wording (not the old text) in a soft red, so changes are visible
+% directly in the normally compiled PDF. Use the same colour in a
+% companion response-to-reviewers letter for \pointer{}, for visual
+% consistency between the two documents.
+\definecolor{changecolor}{RGB}{220,100,100}
+\newcommand{\change}[1]{\textcolor{changecolor}{#1}}
 
 \newcommand{\scol}{\mathbin{;}}
 

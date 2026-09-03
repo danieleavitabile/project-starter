@@ -3,6 +3,15 @@
 
 \usepackage{damacros}
 
+% Lemma, Corollary, and Proposition are left with their SIAM-class defaults
+% (\newsiamthm in the siamart/siamonline class, numbered jointly with Theorem
+% on the shared "theorem" counter, per section). Do not \renewtheorem them
+% with independent [section] counters -- doing so can produce e.g. both a
+% Lemma 5.1 and a Corollary 5.1 in the same section.
+\newcommand{\propositionautorefname}{Proposition}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+
 % Sets running headers as well as PDF title and authors
 \headers{Preliminary notes}{D. Avitabile}
 
@@ -50,7 +59,7 @@ that template. I remark a few things below.
 These are random citations \cite{KoMa14,siam}. For cross-references I use
 \texttt{cleveref}: like this
 \cref{eq:test}, like this \Cref{eq:test}, or like this \cref{sec:conventions}, or
-this \cref{hyp:trivial}, or this \cref{clm:trivial}.
+this \cref{hyp:trivial}, or this \cref{clm:trivial}, or this \cref{asm:trivial}.
 \begin{equation}\label{eq:test}
   x = y
 \end{equation}
@@ -86,11 +95,15 @@ Here are tests for operators
 \subsection{Testing additional theorem-like environments} The following additional
 theorem-like environments may be useful.
 
-\begin{hypothesis} \label{hyp:trivial}
+\begin{hypothesis} \label[hypothesis]{hyp:trivial}
   This is a hypothesis
 \end{hypothesis}
 
-\begin{claim} \label{clm:trivial}
+\begin{assumption} \label[assumption]{asm:trivial}
+  This is an assumption
+\end{assumption}
+
+\begin{claim} \label[claim]{clm:trivial}
   This is a claim
 \end{claim}
 
