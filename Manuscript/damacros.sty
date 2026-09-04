@@ -2,13 +2,18 @@
 \ProvidesClass{damacros}[2019/09/08 DA's auxiliary macros]
 
 \RequirePackage{amsfonts,amsopn}
-% The SIAM class sets \marginparwidth to a mere .25in, far too narrow for a
-% textwidth=6em todonotes box: notes and their coloured box overflow past the
-% page edge instead of being clipped to a legible margin. Widen it before
-% todonotes loads (matches the fix todonotes itself suggests when it warns
-% "marginparwidth is less than 2cm").
-\setlength{\marginparwidth}{2.2cm}
-\RequirePackage[textwidth=6em] {todonotes}
+% Do NOT change \marginparwidth: SIAM's own class value (siamart251216.cls,
+% a4paper, twoside) is left exactly as it is (.25in / 18pt). However that
+% value does not use all the blank paper to the right of it: measuring the
+% actual compiled geometry (\the\paperwidth, \the\oddsidemargin,
+% \the\textwidth, \the\marginparsep, \the\marginparwidth) for this class
+% shows roughly 1.85in of untouched page between the end of the .25in
+% marginpar column and the physical right edge of an a4 page. 2.0in below
+% claims most of that space for the todo box (leaving only a small ~0.1in
+% buffer before the true page edge) without touching \marginparwidth or
+% overflowing the page. If a different paper size / class option changes
+% this geometry, re-measure rather than assuming 2.0in still fits.
+\RequirePackage[textwidth=2.0in]{todonotes}
 \RequirePackage{cleveref}
 \RequirePackage{xcolor}
 
