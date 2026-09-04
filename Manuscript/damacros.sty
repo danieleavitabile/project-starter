@@ -3,17 +3,19 @@
 
 \RequirePackage{amsfonts,amsopn}
 % Do NOT change \marginparwidth: SIAM's own class value (siamart251216.cls,
-% a4paper, twoside) is left exactly as it is (.25in / 18pt). However that
-% value does not use all the blank paper to the right of it: measuring the
-% actual compiled geometry (\the\paperwidth, \the\oddsidemargin,
-% \the\textwidth, \the\marginparsep, \the\marginparwidth) for this class
-% shows roughly 1.85in of untouched page between the end of the .25in
-% marginpar column and the physical right edge of an a4 page. 2.0in below
-% claims most of that space for the todo box (leaving only a small ~0.1in
-% buffer before the true page edge) without touching \marginparwidth or
-% overflowing the page. If a different paper size / class option changes
-% this geometry, re-measure rather than assuming 2.0in still fits.
-\RequirePackage[textwidth=2.0in]{todonotes}
+% a4paper, twoside) is left exactly as it is (.25in / 18pt) for the
+% document as a whole. However that value does not use all the blank
+% paper to the right of it: measuring the actual compiled geometry
+% (\the\paperwidth, \the\oddsidemargin, \the\evensidemargin, \the\textwidth,
+% \the\marginparsep, \the\marginparwidth) for this class shows roughly
+% 1.85in of untouched page between the end of the .25in marginpar column
+% and the physical right edge of an a4 page (the binding constraint is the
+% odd/recto page; even/verso pages have slightly more room here). This
+% \DaNoteWidth claims most of that space, leaving a small buffer before the
+% true page edge. If a different paper size / class option changes this
+% geometry, re-measure rather than assuming this value still fits.
+\newcommand{\DaNoteWidth}{2.0in}
+\RequirePackage[textwidth=\DaNoteWidth]{todonotes}
 \RequirePackage{cleveref}
 \RequirePackage{xcolor}
 
@@ -23,14 +25,33 @@
  \makebox[0pt][c]{\raisebox{.1em}{\small!}}%
  \makebox[0pt][c]{\Large$\bigtriangleup$}}}%
 
+% IMPORTANT: todonotes' own "textwidth" package option (set above, via
+% \DaNoteWidth) only controls how wide the TikZ node *wraps its text* --
+% it does NOT widen the box that \marginpar itself allocates for the note,
+% which todonotes always places using the current \marginparwidth (see
+% \@todonotes@drawMarginNoteWithLine in todonotes.sty). Since \DaNoteWidth
+% is wider than SIAM's .25in \marginparwidth, that mismatch alone produces
+% an "Overfull \hbox" every time and LaTeX visibly flags it with a solid
+% black \overfullrule bar right next to the note -- i.e. exactly the kind
+% of visual defect this was meant to fix, just smaller than the original
+% bug. The macros below correct this by locally widening \marginparwidth,
+% inside a TeX group, to match \DaNoteWidth for the sole duration of the
+% \marginpar call that todonotes issues. \marginpar's box dimensions are
+% fixed at the point it is called (only its vertical placement is
+% deferred), so this reliably gives the note a properly sized box; the
+% group ends immediately afterwards, so \marginparwidth reverts to SIAM's
+% prescribed .25in everywhere else in the document -- the class's real,
+% globally visible margin setting is never touched.
+\newcommand{\@da@widenote}[1]{{\setlength{\marginparwidth}{\DaNoteWidth}#1}}
+
 % DA's todos, define your own macros and colors
-\newcommand{\da}[2][noinline]{\todo[#1, color=blue!20!white]{\small \texttt{DA}: #2}}
+\newcommand{\da}[2][noinline]{\@da@widenote{\todo[#1, color=blue!20!white]{\small \texttt{DA}: #2}}}
 
 % % Other people's todos, examples
-\newcommand{\fc}[2][noinline]{\todo[#1, color=green!20!white]{\small \texttt{FC}: #2}}
-\newcommand{\fa}[2][noinline]{\todo[#1, color=red!20!white]{\small \texttt{FB}: #2}}
-\newcommand{\ga}[2][noinline]{\todo[#1, color=yellow!20!white]{\small \texttt{GC}: #2}}
-\newcommand{\warn}[2][noinline]{\todo[#1, color=red!20!white]{{\tiny \Warning} #2}}
+\newcommand{\fc}[2][noinline]{\@da@widenote{\todo[#1, color=green!20!white]{\small \texttt{FC}: #2}}}
+\newcommand{\fa}[2][noinline]{\@da@widenote{\todo[#1, color=red!20!white]{\small \texttt{FB}: #2}}}
+\newcommand{\ga}[2][noinline]{\@da@widenote{\todo[#1, color=yellow!20!white]{\small \texttt{GC}: #2}}}
+\newcommand{\warn}[2][noinline]{\@da@widenote{\todo[#1, color=red!20!white]{{\tiny \Warning} #2}}}
 % Hack below needed to make notes appear only to the right
 \makeatletter 
 \@mparswitchfalse%
