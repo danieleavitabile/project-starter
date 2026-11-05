@@ -15,7 +15,9 @@
 %%   baskervaldx   Baskervaldx text with matching newtx maths
 %%   cmbright      CM Bright text and maths (no small capitals: see \da@caps)
 %%                 With neither font option, the LaTeX default fonts are used.
-%%   print         white page instead of ivory, e.g. for printing or submission
+%%   grey          grey page with red headings, instead of ivory and sage
+%%   print         white page, e.g. for printing or submission; the heading
+%%                 colour (sage, or red with grey) is kept
 %%   hidelinks     links in the text colour
 %%   SIAM-only options (review, supplement, ...) are accepted and ignored.
 \NeedsTeXFormat{LaTeX2e}[2021/06/01]
@@ -25,6 +27,7 @@
 %% Options
 
 \newif\if@da@print
+\newif\if@da@grey
 \newif\if@da@hidelinks
 \def\da@font{default}
 \def\da@paper{a4paper}
@@ -33,6 +36,7 @@
 \DeclareOption{baskervaldx}{\def\da@font{baskervaldx}}
 \DeclareOption{cmbright}{\def\da@font{cmbright}}
 \DeclareOption{print}{\@da@printtrue}
+\DeclareOption{grey}{\@da@greytrue}
 \DeclareOption{hidelinks}{\@da@hidelinkstrue}
 \def\da@siamonly{%
   \ClassWarningNoLine{daarticle}{Option `\CurrentOption' is SIAM-only and is ignored}}
@@ -72,9 +76,14 @@
 
 % Page, text, headings (title, section headings, theorem labels, QED) and
 % links (citations, cross-references, URLs)
-\definecolor{daPaper}{HTML}{F7F2E8}
+\if@da@grey
+  \definecolor{daPaper}{HTML}{EDEDE9}% grey
+  \definecolor{daHead}{HTML}{A3323A}% deep red
+\else
+  \definecolor{daPaper}{HTML}{F7F2E8}% ivory
+  \definecolor{daHead}{HTML}{2F6F5B}% sage
+\fi
 \definecolor{daInk}{HTML}{231F1C}
-\definecolor{daHead}{HTML}{2F6F5B}
 \definecolor{daLink}{HTML}{134C79}
 % Pale cover tints for todo notes (see damacros.sty), and red for \change
 \definecolor{daRed}{HTML}{C60707}

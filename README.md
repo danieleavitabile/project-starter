@@ -17,7 +17,7 @@ In the starter Manuscript folder, there is also a copy of the most recent SIAM m
 Options of `daarticle`:
 
 - `baskervaldx`: Baskervaldx text with matching newtx maths; `cmbright`: CM Bright (no small capitals, so headings are bold). With neither, the LaTeX default fonts are used.
-- `print`: white page instead of ivory, for printing or submission.
+- Page and colours: by default an ivory page with sage-green headings; `grey`: a grey page with deep-red headings; `print`: a white page, for printing or submission (it keeps the heading colour, so `grey,print` gives a white page with red headings).
 - `a4paper` (default) or `letterpaper`; `hidelinks`.
 
 `Manuscript/test-daarticle.tex` is a test document for the class: an excerpt of a paper with hypotheses, theorems, proofs, a figure, a table and an appendix.
