@@ -20,7 +20,7 @@
 %%                 colour (sage, or red with grey) is kept
 %%   hidelinks     links in the text colour
 %%   SIAM-only options (review, supplement, ...) are accepted and ignored.
-\NeedsTeXFormat{LaTeX2e}[2021/06/01]
+\NeedsTeXFormat{LaTeX2e}[2022/06/01]
 \ProvidesClass{daarticle}[2026/11/05 v0.1 DA's article class]
 
 %% --------------------------------------------------------------------------
@@ -66,6 +66,8 @@
   \RequirePackage[standard-baselineskips]{cmbright}
 \fi
 \RequirePackage{microtype}
+% Letter-spacing is for the class's own headings only (see \da@caps)
+\NewCommandCopy{\da@lsstyle}{\lsstyle}
 % CM Bright has no microtype settings of its own; borrow Computer Modern's
 \DeclareMicrotypeAlias{cmbr}{cmr}
 \RequirePackage{xcolor}
@@ -77,33 +79,33 @@
 % Page, text, headings (title, section headings, theorem labels, QED) and
 % links (citations, cross-references, URLs)
 \if@da@grey
-  \definecolor{daPaper}{HTML}{EDEDE9}% grey
-  \definecolor{daHead}{HTML}{A3323A}% deep red
+  \definecolor{da@page}{HTML}{EDEDE9}% grey
+  \definecolor{da@head}{HTML}{A3323A}% deep red
 \else
-  \definecolor{daPaper}{HTML}{F7F2E8}% ivory
-  \definecolor{daHead}{HTML}{2F6F5B}% sage
+  \definecolor{da@page}{HTML}{F7F2E8}% ivory
+  \definecolor{da@head}{HTML}{2F6F5B}% sage
 \fi
-\definecolor{daInk}{HTML}{231F1C}
-\definecolor{daLink}{HTML}{134C79}
+\definecolor{da@ink}{HTML}{231F1C}
+\definecolor{da@link}{HTML}{134C79}
 % Pale cover tints for todo notes (see damacros.sty), and red for \change
-\definecolor{daRed}{HTML}{C60707}
-\definecolor{daSage}{HTML}{93D7C0}
-\definecolor{daLilac}{HTML}{C0B5F9}
-\definecolor{daSky}{HTML}{93CCF9}
-\definecolor{daPearl}{HTML}{E0E0E0}
-\definecolor{daPink}{HTML}{FFC9E0}
-\colorlet{changecolor}{daRed}
-\colorlet{daNoteDA}{daSage!55!white}    \colorlet{daEdgeDA}{daSage!60!black}
-\colorlet{daNoteFC}{daLilac!55!white}   \colorlet{daEdgeFC}{daLilac!55!black}
-\colorlet{daNoteFA}{daSky!55!white}     \colorlet{daEdgeFA}{daSky!55!black}
-\colorlet{daNoteGA}{daPearl!70!white}   \colorlet{daEdgeGA}{daPearl!50!black}
-\colorlet{daNoteWarn}{daPink!60!white}  \colorlet{daEdgeWarn}{daRed}
+\definecolor{da@red}{HTML}{C60707}
+\definecolor{da@sage}{HTML}{93D7C0}
+\definecolor{da@lilac}{HTML}{C0B5F9}
+\definecolor{da@sky}{HTML}{93CCF9}
+\definecolor{da@pearl}{HTML}{E0E0E0}
+\definecolor{da@pink}{HTML}{FFC9E0}
+\colorlet{changecolor}{da@red}
+\colorlet{daNoteDA}{da@sage!55!white}    \colorlet{daEdgeDA}{da@sage!60!black}
+\colorlet{daNoteFC}{da@lilac!55!white}   \colorlet{daEdgeFC}{da@lilac!55!black}
+\colorlet{daNoteFA}{da@sky!55!white}     \colorlet{daEdgeFA}{da@sky!55!black}
+\colorlet{daNoteGA}{da@pearl!70!white}   \colorlet{daEdgeGA}{da@pearl!50!black}
+\colorlet{daNoteWarn}{da@pink!60!white}  \colorlet{daEdgeWarn}{da@red}
 
 % Text colour; setting \default@color too keeps it in footnotes, floats and
 % running heads, which reset to it through \normalcolor
 \AtBeginDocument{%
-  \if@da@print\else\pagecolor{daPaper}\fi
-  \color{daInk}%
+  \if@da@print\else\pagecolor{da@page}\fi
+  \color{da@ink}%
   \let\default@color\current@color}
 
 %% --------------------------------------------------------------------------
@@ -155,7 +157,7 @@
 \def\da@tmp{cmbright}\ifx\da@font\da@tmp
   \newcommand{\da@caps}{\normalfont\bfseries}
 \else
-  \newcommand{\da@caps}{\normalfont\scshape\lsstyle}
+  \newcommand{\da@caps}{\normalfont\scshape\da@lsstyle}
 \fi
 
 %% --------------------------------------------------------------------------
@@ -176,7 +178,7 @@
 \def\@maketitle{%
   \null
   {\centering
-    {\Large\mdseries\color{daHead}\@title\par}%
+    {\Large\mdseries\color{da@head}\@title\par}%
     \vskip 1.1em
     {\normalsize\da@caps
       \def\and{\unskip{\normalfont\space and\space}\ignorespaces}%
@@ -189,7 +191,7 @@
 \newenvironment{da@abssec}[1]{%
   \par\vspace{.05in}\footnotesize
   \leftskip 2em\rightskip 2em
-  \noindent{\color{daHead}\da@caps #1. }\ignorespaces}
+  \noindent{\color{da@head}\da@caps #1. }\ignorespaces}
   {\par\vspace{.1in}}
 \renewcommand{\abstractname}{Abstract}
 \newcommand{\keywordsname}{Key words}
@@ -202,7 +204,7 @@
 \renewcommand{\@makefntext}[1]{%
   \parindent .25in\noindent\hbox to .25in{\hss\@makefnmark}#1}
 \renewcommand{\footnoterule}{%
-  \kern-3\p@{\color{daInk}\hrule\@width 3pc\@height .3pt}\kern2.6\p@}
+  \kern-3\p@{\color{da@ink}\hrule\@width 3pc\@height .3pt}\kern2.6\p@}
 
 %% --------------------------------------------------------------------------
 %% Page styles
@@ -210,7 +212,7 @@
 % Running heads: centred small capitals, page number at the outer edge, and a
 % double hairline underneath. First page: page number centred at the foot.
 \newcommand{\da@doublerule}{%
-  \vskip 3pt{\color{daInk}\hrule\@height .5pt\vskip 1.3pt\hrule\@height .25pt}}
+  \vskip 3pt{\color{da@ink}\hrule\@height .5pt\vskip 1.3pt\hrule\@height .25pt}}
 \def\ps@myheadings{%
   \let\@oddfoot\@empty\let\@evenfoot\@empty
   \def\@evenhead{\vbox{\hbox to\textwidth{\footnotesize\rlap{\thepage}\hfil
@@ -235,13 +237,13 @@
 % numbers are upright and hang in the margin.
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
   {1.3ex \@plus .5ex \@minus .2ex}{-.5em \@plus -.1em}%
-  {\normalfont\normalsize\color{daHead}\da@caps}}
+  {\normalfont\normalsize\color{da@head}\da@caps}}
 \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
   {1.3ex \@plus .5ex \@minus .2ex}{-.5em \@plus -.1em}%
-  {\normalfont\normalsize\color{daHead}\itshape}}
+  {\normalfont\normalsize\color{da@head}\itshape}}
 \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
   {1.3ex \@plus .5ex \@minus .2ex}{-.5em \@plus -.1em}%
-  {\normalfont\normalsize\color{daHead}\itshape}}
+  {\normalfont\normalsize\color{da@head}\itshape}}
 \renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
   {1.3ex \@plus .5ex \@minus .2ex}{-.5em \@plus -.1em}%
   {\normalfont\normalsize\itshape}}
@@ -327,7 +329,7 @@
 %% Links and cross-references
 
 \RequirePackage{hyperref}
-\hypersetup{colorlinks, allcolors=daLink, bookmarksnumbered}
+\hypersetup{colorlinks, allcolors=da@link, bookmarksnumbered}
 \urlstyle{same}
 \if@da@hidelinks\hypersetup{hidelinks}\fi
 \RequirePackage[capitalize,nameinlink]{cleveref}
@@ -358,10 +360,10 @@
 % Label in small capitals and in the heading colour, indented like a
 % paragraph; an optional name follows in italics
 \newtheoremstyle{da@theorem}{1.2ex \@plus .25ex \@minus .1ex}{1.2ex \@plus .25ex \@minus .1ex}%
-  {\itshape}{\parindent}{\color{daHead}\da@caps}{.}{.5em}%
+  {\itshape}{\parindent}{\color{da@head}\da@caps}{.}{.5em}%
   {\thmname{#1}\thmnumber{ #2}\thmnote{ {\normalfont\itshape(#3)}}}
 \newtheoremstyle{da@remark}{1.2ex \@plus .25ex \@minus .1ex}{1.2ex \@plus .25ex \@minus .1ex}%
-  {\normalfont}{\parindent}{\color{daHead}\da@caps}{.}{.5em}%
+  {\normalfont}{\parindent}{\color{da@head}\da@caps}{.}{.5em}%
   {\thmname{#1}\thmnumber{ #2}\thmnote{ {\normalfont\itshape(#3)}}}
 
 \theoremstyle{da@theorem}
@@ -379,7 +381,7 @@
 
 % End-of-proof mark: a small square drawn as a double outline, thick outside
 % and thin inside, echoing the double hairline under the running heads
-\renewcommand{\qedsymbol}{\mbox{\color{daHead}%
+\renewcommand{\qedsymbol}{\mbox{\color{da@head}%
   \setlength{\fboxrule}{.5pt}\setlength{\fboxsep}{1.1pt}%
   \fbox{\setlength{\fboxrule}{.25pt}\setlength{\fboxsep}{0pt}%
     \fbox{\rule{0pt}{1ex}\rule{1ex}{0pt}}}}}
@@ -391,5 +393,21 @@
   \trivlist
   \item[\hskip\labelsep\hskip\parindent\itshape #1\@addpunct{.}]\ignorespaces}
   {\popQED\endtrivlist\@endpefalse}
+
+%% --------------------------------------------------------------------------
+%% Commands withheld so that documents switch to the SIAM classes unchanged
+
+% A document written with daarticle must compile with siamart and siamonline
+% too. Commands that the packages loaded here provide, but the SIAM classes
+% do not, therefore stop with an error. The class colours have internal
+% names (da@...) for the same reason.
+\newcommand{\da@notinsiam}[1]{\ClassError{daarticle}
+  {\string#1 is not available in the SIAM classes}
+  {daarticle leaves out commands that the SIAM classes lack, so that the
+   \MessageBreak document can switch to them by changing \string\documentclass.}}
+\AtBeginDocument{%
+  \renewcommand{\qedhere}{\da@notinsiam\qedhere}%
+  \DeclareRobustCommand{\lsstyle}{\da@notinsiam\lsstyle}%
+  \DeclareRobustCommand{\textls}[2][]{\da@notinsiam\textls #2}}
 
 \endinput

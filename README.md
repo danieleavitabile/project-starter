@@ -14,6 +14,8 @@ In the starter Manuscript folder, there is also a copy of the most recent SIAM m
 
 `daarticle.cls` is my own class, built on the standard `article` class and independent of the SIAM classes. It has the same page layout as `siamonline`, and provides the same front-matter commands (`\headers`, `\email`, `\thanks`), environments (`abstract`, `keywords`, `MSCcodes`, theorem-like environments, `proof`) and theorem macros (`\newsiamthm`, `\newsiamremark`), so a document moves between the classes unchanged. Its look takes its cue from the publisher Adelphi: classic serif, small capitals, centred title and running heads, an ivory page, and colours sampled from the Biblioteca Adelphi covers.
 
+A document written with `daarticle` should switch to the SIAM classes unchanged. For this, `daarticle` stops with an error on commands that its packages provide but the SIAM classes lack (`\qedhere`, `\textls`, `\lsstyle`), and its colours have internal names; `damacros.sty` loads the AMS symbols (`amssymb`) under every class.
+
 Options of `daarticle`:
 
 - `baskervaldx`: Baskervaldx text with matching newtx maths; `cmbright`: CM Bright (no small capitals, so headings are bold). With neither, the LaTeX default fonts are used.

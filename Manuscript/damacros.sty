@@ -2,6 +2,9 @@
 \ProvidesPackage{damacros}[2019/09/08 DA's auxiliary macros]
 
 \RequirePackage{amsfonts,amsopn}
+% The AMS symbols (\leqslant, \lesssim, \varnothing, ...) under every class;
+% newtxmath (daarticle's baskervaldx option) already provides them
+\@ifpackageloaded{newtxmath}{}{\RequirePackage{amssymb}}
 % Do NOT change \marginparwidth: SIAM's own class value (siamart251216.cls,
 % a4paper, twoside) is left exactly as it is (.25in / 18pt) for the
 % document as a whole. However that value does not use all the blank
