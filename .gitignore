@@ -29,3 +29,6 @@
 *.thm
 Manuscript/manuscript.pdf
 Manuscript/manuscript.synctex.gz
+Manuscript/test-daarticle.pdf
+Manuscript/Figures/*.aux
+Manuscript/Figures/*.log

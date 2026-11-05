@@ -1,7 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{damacros}[2019/09/08 DA's auxiliary macros]
+\ProvidesPackage{damacros}[2019/09/08 DA's auxiliary macros]
 
 \RequirePackage{amsfonts,amsopn}
+% The AMS symbols (\leqslant, \lesssim, \varnothing, ...) under every class;
+% newtxmath (daarticle's baskervaldx option) already provides them
+\@ifpackageloaded{newtxmath}{}{\RequirePackage{amssymb}}
 % Do NOT change \marginparwidth: SIAM's own class value (siamart251216.cls,
 % a4paper, twoside) is left exactly as it is (.25in / 18pt) for the
 % document as a whole. However that value does not use all the blank
@@ -14,10 +17,30 @@
 % \DaNoteWidth claims most of that space, leaving a small buffer before the
 % true page edge. If a different paper size / class option changes this
 % geometry, re-measure rather than assuming this value still fits.
-\newcommand{\DaNoteWidth}{2.0in}
+% siamonline and daarticle have a wider text block, leaving much less room:
+% 0.8in is what fits before the page edge in their compiled geometry.
+\@ifclassloaded{siamonline250211}
+  {\newcommand{\DaNoteWidth}{0.8in}}
+  {\@ifclassloaded{daarticle}
+    {\newcommand{\DaNoteWidth}{0.8in}}
+    {\newcommand{\DaNoteWidth}{2.0in}}}
 \RequirePackage[textwidth=\DaNoteWidth]{todonotes}
 \RequirePackage{cleveref}
 \RequirePackage{xcolor}
+
+% Todo colours, as names. A class that defines them first (daarticle) keeps its
+% own; otherwise these defaults are used.
+\newcommand{\@da@defaultcolor}[2]{\@ifundefined{\string\color@#1}{\colorlet{#1}{#2}}{}}
+\@da@defaultcolor{daNoteDA}{blue!20!white}
+\@da@defaultcolor{daEdgeDA}{black}
+\@da@defaultcolor{daNoteFC}{green!20!white}
+\@da@defaultcolor{daEdgeFC}{black}
+\@da@defaultcolor{daNoteFA}{red!20!white}
+\@da@defaultcolor{daEdgeFA}{black}
+\@da@defaultcolor{daNoteGA}{yellow!20!white}
+\@da@defaultcolor{daEdgeGA}{black}
+\@da@defaultcolor{daNoteWarn}{red!20!white}
+\@da@defaultcolor{daEdgeWarn}{black}
 
 % Define a warning sybol
 \newcommand\Warning{%
@@ -45,17 +68,15 @@
 \newcommand{\@da@widenote}[1]{{\setlength{\marginparwidth}{\DaNoteWidth}#1}}
 
 % DA's todos, define your own macros and colors
-\newcommand{\da}[2][noinline]{\@da@widenote{\todo[#1, color=blue!20!white]{\small \texttt{DA}: #2}}}
+\newcommand{\da}[2][noinline]{\@da@widenote{\todo[#1, color=daNoteDA, bordercolor=daEdgeDA]{\small \texttt{DA}: #2}}}
 
 % % Other people's todos, examples
-\newcommand{\fc}[2][noinline]{\@da@widenote{\todo[#1, color=green!20!white]{\small \texttt{FC}: #2}}}
-\newcommand{\fa}[2][noinline]{\@da@widenote{\todo[#1, color=red!20!white]{\small \texttt{FB}: #2}}}
-\newcommand{\ga}[2][noinline]{\@da@widenote{\todo[#1, color=yellow!20!white]{\small \texttt{GC}: #2}}}
-\newcommand{\warn}[2][noinline]{\@da@widenote{\todo[#1, color=red!20!white]{{\tiny \Warning} #2}}}
+\newcommand{\fc}[2][noinline]{\@da@widenote{\todo[#1, color=daNoteFC, bordercolor=daEdgeFC]{\small \texttt{FC}: #2}}}
+\newcommand{\fa}[2][noinline]{\@da@widenote{\todo[#1, color=daNoteFA, bordercolor=daEdgeFA]{\small \texttt{FB}: #2}}}
+\newcommand{\ga}[2][noinline]{\@da@widenote{\todo[#1, color=daNoteGA, bordercolor=daEdgeGA]{\small \texttt{GC}: #2}}}
+\newcommand{\warn}[2][noinline]{\@da@widenote{\todo[#1, color=daNoteWarn, bordercolor=daEdgeWarn]{{\tiny \Warning} #2}}}
 % Hack below needed to make notes appear only to the right
-\makeatletter 
 \@mparswitchfalse%
-\makeatother
 \normalmarginpar
 % 
 
@@ -149,7 +170,7 @@
 % directly in the normally compiled PDF. Use the same colour in a
 % companion response-to-reviewers letter for \pointer{}, for visual
 % consistency between the two documents.
-\definecolor{changecolor}{RGB}{220,100,100}
+\@ifundefined{\string\color@changecolor}{\definecolor{changecolor}{RGB}{220,100,100}}{}
 \newcommand{\change}[1]{\textcolor{changecolor}{#1}}
 
 \newcommand{\scol}{\mathbin{;}}
